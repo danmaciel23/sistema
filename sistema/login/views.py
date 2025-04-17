@@ -26,22 +26,22 @@ class login_view(View):
         if request.user.is_authenticated:
             return redirect("/veiculos")
         else:
-            return render(request, 'login.html', {'mensagem': 'Usuário ou senha inválidos'})
+            return render(request, 'login.html', Contexto)
     #obtem os valores nos campos de user e senha no form login.html   
     def post(self, request):
-        usuario = request.POST.get('usuario', None)
-        senha = request.POST.get('senha', None)
+        username = request.POST.get('username', None)
+        password = request.POST.get('password', None)
 
-        user = authenticate(request, username = 'usuario', password = 'senha')
+        user = authenticate(request, username = username, password = password)
         if user is not None:
             #verifica se o usuario nao esta off no sistema
             if user.is_active:
                 login(request, user)
                 return redirect("/veiculos")
             
-            return render( request, 'autenticacao.html',  {'mensagem': 'Usuário inativo'})
+            return render( request, 'login.html',  {'mensagem': 'Usuário inativo'})
         
-        return render( request, 'autenticacao.html',  {'mensagem': 'Usuário ou senha inválidos'})
+        return render( request, 'login.html',  {'mensagem': 'Usuário ou senha inválidos'})
     
 class Logout(View):
 

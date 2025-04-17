@@ -1,29 +1,32 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Login - CarsView</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="{% static 'assets/favico.ico' %}" type="image/ico">
 </head>
-<body class="bg-light">
-
+<body class="bg-light">    
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-    <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
-        <h3 class="text-center mb-4">CarsView - Login</h3>
+    <img src="{% static 'assets/logo.png' %}" alt="logo" style="position: relative;", width="315px">
+    <div class="card p-4" style="width: 100%; max-width: 400px; border-radius: 0px; box-shadow: none; border-style: none;" >
+        <h3 class="text-center mb-4">Login</h3>
 
         <form method="POST" action="/">
         {% csrf_token %}
             <div class="mb-3">
-                <label for="username" class="form-label">username</label>
+                <label for="username" class="form-label">Username</label>
                 <input type="text" class="form-control" id="username" name="username" placeholder="Digite seu usuário">
             </div>
             <div class="mb-3">
-                <label for="password" class="form-label">password</label>
+                <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha">
             </div>
             <button type="submit" class="btn btn-primary w-100">Entrar</button>
         </form>
     </div>
+    <!-- <p>Copyright &#169; 2025. Todos os direitos reservados.</p> -->
 </div>
 
 </body>
