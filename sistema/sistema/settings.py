@@ -134,3 +134,6 @@ STATIC_URL = '/static/'
 
 # Se estiver em modo desenvolvimento:
 STATICFILES_DIRS = [ BASE_DIR / "static" ]
+
+MEDIA_URL = '/fotos/'
+MEDIA_ROOT = BASE_DIR / 'veiculos' / 'fotos'
