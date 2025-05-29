@@ -1,9 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, UpdateView, CreateView, DeleteView
+from django.views.generic import ListView, UpdateView, CreateView, View
 from .models import Veiculo
-from .forms import VeiculoForm
-from django.core.files.storage import FileSystemStorage
+from .forms import FormularioVeiculo
+##from django.core.files.storage import object
+from django.http import FileResponse, HttpResponseNotFound, Http404
+from rest_framework.generics import ListAPIView
+from rest_framework.authentication import TokenAuthentication
+from rest_framework import permissions
+from veiculos.serializers import SerealizadorVeiculo
+from sistema import settings
+import os
 
 class ListarVeiculos(ListView):
     model = Veiculo
@@ -12,28 +19,46 @@ class ListarVeiculos(ListView):
 
 class EditarVeiculos(UpdateView):
     model = Veiculo
-    form_class = VeiculoForm
+    form_class = FormularioVeiculo
     template_name = 'veiculo/editar.html'
     success_url = reverse_lazy('listar-veiculos')
 
 class CriarVeiculos(CreateView):
     model = Veiculo
-    form_class = VeiculoForm
-    template_name = 'veiculo/criar.html'
+    form_class = FormularioVeiculo
+    template_name = 'veiculo/novo.html'
     success_url = reverse_lazy('listar-veiculos')
 
-class ExcluirVeiculos(DeleteView):
-    model = Veiculo
-    template_name = 'veiculo/confirmar-exclusao.html'
-    success_url = reverse_lazy('listar-veiculos')
+class FotoVeiculo(View):
 
-def FotoVeiculo(request):
-    if request.method == 'POST' and request.FILES['foto']:
-        foto = request.FILES['foto']
-        fs = FileSystemStorage()
-        filename = fs.save(foto.name, foto)
-        uploaded_file_url = fs.url(filename)
-        return render(request, 'veiculo/foto-upload.html', {
-            'uploaded_file_url': uploaded_file_url
-        })
-    return render(request, 'veiculo/foto-upload.html')
+    def get(self, request, arquivo):
+        try:
+            veiculo = Veiculo.objects.get(foto='veiculos/fotos/{}' .format(arquivo))
+
+            caminho_arquivo = os.path.join(settings.MEDIA_ROOT, veiculo.foto.name)
+
+        # Verifica se o arquivo realmente existe
+            if not os.path.exists(caminho_arquivo):
+                raise Http404("Arquivo não encontrado")
+
+            # Retorna o arquivo como resposta
+            return FileResponse(open(caminho_arquivo, 'rb'), content_type='image/jpeg')
+
+        except Veiculo.DoesNotExist:
+            raise Http404("Veículo com essa foto não encontrado")
+        except Exception as e:
+            raise Http404(f"Erro ao acessar o arquivo: {str(e)}")
+            
+class APIListaVeiculos(ListAPIView):
+    """
+    API para listar veículos.
+    """
+    serializer_class = SerealizadorVeiculo 
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        """
+        Retorna todos os veículos.
+        """
+        return Veiculo.objects.all()

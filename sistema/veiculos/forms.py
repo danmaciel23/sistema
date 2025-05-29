@@ -1,7 +1,7 @@
-from django import forms
-from .models import Veiculo
+from veiculos.models import Veiculo
+from django.forms import ModelForm
 
-class VeiculoForm(forms.ModelForm):
+class FormularioVeiculo(ModelForm):
     class Meta:
         model = Veiculo
-        fields = ['marca', 'modelo', 'ano', 'cor', 'foto', 'combustivel']
+        exclude = []

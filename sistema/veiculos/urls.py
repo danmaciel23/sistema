@@ -1,10 +1,10 @@
 from django.urls import path
-from .views import ListarVeiculos, CriarVeiculos, EditarVeiculos, ExcluirVeiculos, FotoVeiculo
+from .views import *
 
 urlpatterns = [
-    path('listar/', ListarVeiculos.as_view(), name='listar-veiculos'),
-    path('upload-foto/', FotoVeiculo, name = 'upload-foto'),
+    path('', ListarVeiculos.as_view(), name='listar-veiculos'),
+    path('fotos/<str:arquivo>/', FotoVeiculo.as_view(), name = 'fotos'),
     path('editar/<int:pk>/', EditarVeiculos.as_view(), name='editar-veiculos'),
-    path('criar/', CriarVeiculos.as_view(), name='criar-veiculos'),
-    path('excluir/<int:pk>/', ExcluirVeiculos.as_view(), name='excluir-veiculos'),
+    path('novo/', CriarVeiculos.as_view(), name='criar-veiculos'),
+    path('api/', APIListaVeiculos.as_view(), name='api-listar-veiculos'),
 ]
