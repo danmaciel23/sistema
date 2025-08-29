@@ -52,7 +52,7 @@ class Logout(View):
         logout(request)
         return redirect(settings.LOGIN_URL)
     
-    #teria que trocar a url para lista-veiculos para apos o login ele direcionar para a tela de listagem dos carros.../ - / .-. /...
+    
 
 class LoginAPI(ObtainAuthToken):
 

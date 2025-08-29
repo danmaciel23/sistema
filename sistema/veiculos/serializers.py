@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Veiculo
+##aqui temos a serialização do modelo Veiculo, que é usado para converter os dados do modelo em um formato JSON ou XML, que pode ser facilmente consumido por APIs ou outras aplicações.
 
 class SerealizadorVeiculo(serializers.ModelSerializer):
     

@@ -21,4 +21,4 @@ class Veiculo(models.Model):
         """
         Retorna a quantidade de anos que o veículo está em uso.
         """
-        return datetime.now().year - self.ano
+        return datetime.now().year - self.ano #retorna a diferenaca entre ano dos veiculos gg

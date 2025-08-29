@@ -30,7 +30,7 @@
                     <strong>Combustível:</strong> {{ veiculo.get_combustivel_display }}
                 </p>
                 <a href="{% url 'editar-veiculos' veiculo.id %}" class="btn btn-primary btn-sm">Editar</a>
-                <a href= class = "btn btn-danger btn-sm">mudar de veiculo</a>
+                <a href="{% url 'excluir-veiculos' veiculo.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este veículo?');">Excluir</a>
             </div>
         </div>
     </div>

@@ -1,27 +1,34 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+    
+{% load static %}
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aluguel de Carros</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
 </head>
 
 <body>
     <header class="bg-primary text-white text-center py-3">
-        <h1>Cars View</h1>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a href="{% url 'listar-veiculos' %}" class="text-white text-decoration-none">
+            <h1>Cars View</h1>
+        </a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light ml-5 mr-5">
             <div class="container">
-                <a class="navbar-brand" href="{% url 'listar-veiculos' %}">Home</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                     <ul class="navbar-nav">
+                        <li>
+                            <a class="nav-link" href="{% url 'listar-veiculos' %}">Home</a>
+                        </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'criar-veiculos' %}">Criar veiculo</a>
+                            <a class="nav-link" href="{% url 'criar-veiculos' %}">Criar veiculo </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href=>Deletar Veiculo</a>
@@ -33,7 +40,7 @@
     </header>
     
     <div class="container mt-4">
-        <div class="row"  style="width: 1030px; height: auto;"> 
+        <div class="row"  style="height: auto;"> 
             {% block content %}
             <!-- Aqui serão renderizados os blocos de veículos -->
             {% endblock %}
